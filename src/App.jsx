@@ -159,6 +159,12 @@ export default function App() {
       return;
     }
 
+    const pendingScenes = config.scenes.filter(s => !s.preview_url);
+    if (pendingScenes.length > 0) {
+      alert(`Please render keyframes for all scenes before producing 1080p video (${pendingScenes.length} scenes still pending). Click "Render All Keyframes" in Step 02.`);
+      return;
+    }
+
     setIsRendering(true);
     setJobId(null);
 
@@ -215,29 +221,26 @@ export default function App() {
           onSelectDesignStyle={handleDesignStyleSelect}
         />
 
-        {/* 2-Column Section: Left = Approval Board, Right = Production Monitor / 1080p Player */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
-          {/* Left Columns: Interactive Approval Board */}
-          <section ref={approvalBoardRef} className="lg:col-span-7 xl:col-span-8">
-            <ApprovalBoard
-              config={config}
-              onChangeConfig={setConfig}
-              onApproveAndRender={handleApproveAndRender}
-              isRendering={isRendering}
-              musicTracks={musicTracks}
-              voices={voices}
-            />
-          </section>
+        {/* Step 2: Interactive Storyboard Review (Full Width for Maximum Script Readability) */}
+        <section ref={approvalBoardRef} className="w-full">
+          <ApprovalBoard
+            config={config}
+            onChangeConfig={setConfig}
+            onApproveAndRender={handleApproveAndRender}
+            isRendering={isRendering}
+            musicTracks={musicTracks}
+            voices={voices}
+          />
+        </section>
 
-          {/* Right Columns: Sticky 1080p Video Player & Production Progress */}
-          <section ref={productionMonitorRef} className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-20">
-            <ProductionMonitor
-              config={config}
-              externalJobId={jobId}
-              onRenderingFinished={() => setIsRendering(false)}
-            />
-          </section>
-        </div>
+        {/* Step 3: Master 1080p Video Output & Player (Bottom Full Width with Theater Sizing) */}
+        <section ref={productionMonitorRef} className="w-full">
+          <ProductionMonitor
+            config={config}
+            externalJobId={jobId}
+            onRenderingFinished={() => setIsRendering(false)}
+          />
+        </section>
       </main>
 
       <CloudflareApiKeyModal

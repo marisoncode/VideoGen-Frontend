@@ -135,6 +135,7 @@ export default function StudioInputSection({
       formData.append('voice', selectedVoice || 'Reference Voice Clone (100% Match)');
       formData.append('background_music', selectedMusic || 'inspiring_educational');
       formData.append('target_duration', targetDuration || 120);
+      formData.append('generate_images', 'false');
       formData.append('chapter_topic', chapterTopic.trim());
       formData.append('target_audience', targetAudience.trim());
 
@@ -163,7 +164,7 @@ export default function StudioInputSection({
         throw new Error(errData.detail || `Server error (${response.status})`);
       }
 
-      setCurrentNotice('Rendering 16:9 dedicated keyframes via FLUX...');
+      setCurrentNotice('Crafting visual scene prompts & framing...');
       const data = await response.json();
 
       if (data && data.scenes) {
@@ -647,7 +648,7 @@ export default function StudioInputSection({
               {currentNotice}
             </span>
           ) : (
-            <span>Calculates pacing, segments scenes, and crafts spoken narrations with Groq.</span>
+            <span>Instant AI Screenplay: review dialogue, timing & visual prompts before rendering keyframes.</span>
           )}
         </div>
 
@@ -664,12 +665,12 @@ export default function StudioInputSection({
           {isGenerating ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin shrink-0" />
-              <span>Generating Storyboard...</span>
+              <span>Drafting Storyboard Scenes...</span>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 shrink-0" />
-              <span>Generate Autonomous Storyboard</span>
+              <span>Draft Storyboard & Prompts (Instant)</span>
             </>
           )}
         </button>
