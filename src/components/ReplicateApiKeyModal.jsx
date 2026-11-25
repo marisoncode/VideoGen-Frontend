@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, ExternalLink, Key } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function ReplicateApiKeyModal({ isOpen, onClose, onConfigSaved }) {
   const [apiToken, setApiToken] = useState('');
@@ -9,7 +10,7 @@ export default function ReplicateApiKeyModal({ isOpen, onClose, onConfigSaved })
 
   useEffect(() => {
     if (isOpen) {
-      fetch('/api/v1/replicate/status')
+      fetch(apiUrl('/api/v1/replicate/status'))
         .then(res => res.json())
         .then(data => {
           if (data && data.configured) {
@@ -29,7 +30,7 @@ export default function ReplicateApiKeyModal({ isOpen, onClose, onConfigSaved })
     setStatusMsg(null);
 
     try {
-      const res = await fetch('/api/v1/replicate/config', {
+      const res = await fetch(apiUrl('/api/v1/replicate/config'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ api_token: apiToken.trim() })

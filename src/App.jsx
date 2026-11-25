@@ -5,6 +5,7 @@ import ApprovalBoard from './components/ApprovalBoard';
 import ProductionMonitor from './components/ProductionMonitor';
 import ReplicateApiKeyModal from './components/ReplicateApiKeyModal';
 import CloudflareApiKeyModal from './components/CloudflareApiKeyModal';
+import { apiUrl } from './api';
 
 export default function App() {
   const [config, setConfig] = useState({
@@ -57,7 +58,7 @@ export default function App() {
 
   useEffect(() => {
     // 1. Fetch current saved config
-    fetch('/api/v1/custom/config')
+    fetch(apiUrl('/api/v1/custom/config'))
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.scenes) && data.scenes.length > 0) {
@@ -73,7 +74,7 @@ export default function App() {
       .catch(err => console.error('Error loading config:', err));
 
     // 2. Fetch voices
-    fetch('/api/v1/voices')
+    fetch(apiUrl('/api/v1/voices'))
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) setVoices(data);
@@ -81,7 +82,7 @@ export default function App() {
       .catch(err => console.error('Error loading voices:', err));
 
     // 3. Fetch music tracks
-    fetch('/api/v1/studio/music-tracks')
+    fetch(apiUrl('/api/v1/studio/music-tracks'))
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) setMusicTracks(data);
@@ -89,7 +90,7 @@ export default function App() {
       .catch(err => console.error('Error loading music tracks:', err));
 
     // 4. Fetch design styles
-    fetch('/api/v1/studio/design-styles')
+    fetch(apiUrl('/api/v1/studio/design-styles'))
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) setDesignStyles(data);
@@ -97,19 +98,19 @@ export default function App() {
       .catch(err => console.error('Error loading design styles:', err));
 
     // 5. Fetch Replicate status
-    fetch('/api/v1/replicate/status')
+    fetch(apiUrl('/api/v1/replicate/status'))
       .then(res => res.json())
       .then(data => setReplicateConfigured(data.configured))
       .catch(err => console.error('Error loading Replicate status:', err));
 
     // 6. Fetch Cloudflare Workers AI status
-    fetch('/api/v1/cloudflare/status')
+    fetch(apiUrl('/api/v1/cloudflare/status'))
       .then(res => res.json())
       .then(data => setCloudflareConfigured(data.configured))
       .catch(err => console.error('Error loading Cloudflare status:', err));
 
     // 7. Fetch Groq AI status
-    fetch('/api/v1/groq/status')
+    fetch(apiUrl('/api/v1/groq/status'))
       .then(res => res.json())
       .then(data => setGroqConfigured(data.configured))
       .catch(err => console.error('Error loading Groq status:', err));
@@ -162,7 +163,7 @@ export default function App() {
     setJobId(null);
 
     try {
-      const res = await fetch('/api/v1/custom/render', {
+      const res = await fetch(apiUrl('/api/v1/custom/render'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(config)

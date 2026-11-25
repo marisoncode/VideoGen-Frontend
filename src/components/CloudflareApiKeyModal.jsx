@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, ExternalLink, Cloud, Sparkles, ShieldCheck } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function CloudflareApiKeyModal({ isOpen, onClose, onConfigSaved }) {
   const [accountId, setAccountId] = useState('');
@@ -11,7 +12,7 @@ export default function CloudflareApiKeyModal({ isOpen, onClose, onConfigSaved }
 
   useEffect(() => {
     if (isOpen) {
-      fetch('/api/v1/cloudflare/status')
+      fetch(apiUrl('/api/v1/cloudflare/status'))
         .then(res => res.json())
         .then(data => {
           if (data && data.configured) {
@@ -37,7 +38,7 @@ export default function CloudflareApiKeyModal({ isOpen, onClose, onConfigSaved }
     setStatusMsg(null);
 
     try {
-      const res = await fetch('/api/v1/cloudflare/config', {
+      const res = await fetch(apiUrl('/api/v1/cloudflare/config'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

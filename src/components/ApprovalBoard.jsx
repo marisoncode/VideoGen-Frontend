@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../api';
 import {
   Check,
   RefreshCw,
@@ -87,7 +88,7 @@ export default function ApprovalBoard({
     setRegeneratingIdx(index);
 
     try {
-      const res = await fetch('/api/v1/studio/regenerate-image', {
+      const res = await fetch(apiUrl('/api/v1/studio/regenerate-image'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -395,7 +396,7 @@ export default function ApprovalBoard({
                         title="Click to view full-resolution image"
                       >
                         <img
-                          src={scene.preview_url}
+                          src={apiUrl(scene.preview_url)}
                           alt={`Scene ${sNum}`}
                           className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
                         />
@@ -860,7 +861,7 @@ export default function ApprovalBoard({
 
                 <div className="flex items-center gap-2 shrink-0">
                   <a
-                    href={fullscreenImage.url}
+                    href={apiUrl(fullscreenImage.url)}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
@@ -915,7 +916,7 @@ export default function ApprovalBoard({
                 )}
 
                 <img
-                  src={fullscreenImage.url}
+                  src={apiUrl(fullscreenImage.url)}
                   alt={fullscreenImage.title}
                   className="max-h-[75vh] w-auto max-w-full object-contain rounded shadow-lg"
                 />

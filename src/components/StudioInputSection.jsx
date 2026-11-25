@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../api';
 import {
   FileText,
   Sparkles,
@@ -83,7 +84,7 @@ export default function StudioInputSection({
       const formData = new FormData();
       formData.append('file', file);
 
-      const res = await fetch('/api/v1/studio/upload-reference-audio', {
+      const res = await fetch(apiUrl('/api/v1/studio/upload-reference-audio'), {
         method: 'POST',
         body: formData
       });
@@ -92,7 +93,7 @@ export default function StudioInputSection({
 
       const data = await res.json();
       setReferenceAudioFile(file);
-      setReferenceAudioUrl(data.preview_url);
+      setReferenceAudioUrl(apiUrl(data.preview_url));
       setReferenceAudioName(file.name);
       onSelectVoice(data.voice_id);
     } catch (err) {
@@ -152,7 +153,7 @@ export default function StudioInputSection({
       }
 
       setCurrentNotice('Screenwriting storyboard scenes with Groq LLM...');
-      const response = await fetch('/api/v1/studio/create-storyboard', {
+      const response = await fetch(apiUrl('/api/v1/studio/create-storyboard'), {
         method: 'POST',
         body: formData
       });

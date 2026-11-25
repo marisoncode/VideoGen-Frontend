@@ -7,6 +7,7 @@ import {
   Clock,
   Play
 } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function ProductionMonitor({ config, externalJobId, onRenderingFinished }) {
   const [jobId, setJobId] = useState(externalJobId || null);
@@ -28,14 +29,14 @@ export default function ProductionMonitor({ config, externalJobId, onRenderingFi
 
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(`/api/v1/videos/status/${jobId}`);
+        const res = await fetch(apiUrl(`/api/v1/videos/status/${jobId}`));
         if (!res.ok) return;
         const data = await res.json();
         setJobStatus(data);
 
         if (data.status === 'COMPLETED') {
           setGenerating(false);
-          setOutputVideoUrl(data.download_url);
+          setOutputVideoUrl(apiUrl(data.download_url));
           if (onRenderingFinished) onRenderingFinished();
           clearInterval(interval);
         } else if (data.status === 'FAILED') {
