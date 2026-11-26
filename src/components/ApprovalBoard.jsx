@@ -361,7 +361,7 @@ export default function ApprovalBoard({
               disabled={isBatchRendering || regeneratingIdx !== null}
               onClick={handleBatchRenderAllKeyframes}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-bold transition active:scale-95 border ${
-                scenes.filter(s => !s.preview_url).length > 0
+                scenes.filter(s => !(s.preview_url || s.image_path)).length > 0
                   ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700 shadow-sm'
                   : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-300'
               } ${isBatchRendering ? 'opacity-90 cursor-wait' : ''}`}
@@ -372,10 +372,10 @@ export default function ApprovalBoard({
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
                   <span>Rendering Keyframe {batchProgress.current} of {batchProgress.total}...</span>
                 </>
-              ) : scenes.filter(s => !s.preview_url).length > 0 ? (
+              ) : scenes.filter(s => !(s.preview_url || s.image_path)).length > 0 ? (
                 <>
                   <Sparkles className="w-3.5 h-3.5 text-blue-200" />
-                  <span>✨ Render All Keyframes ({scenes.filter(s => !s.preview_url).length} Pending)</span>
+                  <span>✨ Render All Keyframes ({scenes.filter(s => !(s.preview_url || s.image_path)).length} Pending)</span>
                 </>
               ) : (
                 <>
@@ -491,11 +491,13 @@ export default function ApprovalBoard({
                 {/* Left: 16:9 Image Preview */}
                 <div className="md:col-span-5 space-y-2 sm:space-y-2.5">
                   <div className="aspect-video w-full bg-slate-950 rounded-lg overflow-hidden border border-slate-300 relative flex items-center justify-center group">
-                    {scene.preview_url ? (
+                    {(() => {
+                      const activePreviewUrl = scene.preview_url || (scene.image_path ? (scene.image_path.startsWith('/static/') ? scene.image_path : `/static/uploads/${scene.image_path.split(/[\\/]/).pop()}`) : null);
+                      return activePreviewUrl ? (
                       <div
                         className="w-full h-full relative cursor-pointer overflow-hidden"
                         onClick={() => setFullscreenImage({
-                          url: scene.preview_url,
+                          url: activePreviewUrl,
                           title: scene.title || `Scene ${sNum}`,
                           sNum: sNum,
                           prompt: scene.image_prompt || '',
@@ -504,7 +506,7 @@ export default function ApprovalBoard({
                         title="Click to view full-resolution image"
                       >
                         <img
-                          src={apiUrl(scene.preview_url)}
+                          src={apiUrl(activePreviewUrl)}
                           alt={`Scene ${sNum}`}
                           className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
                         />
@@ -535,7 +537,8 @@ export default function ApprovalBoard({
                           <span>Render Keyframe</span>
                         </button>
                       </div>
-                    )}
+                    );
+                  })()}
 
                     {/* Floating Left / Right Arrow Navigation Overlay on Image */}
                     {hasHistory && !isRegen && !isUpload && (
