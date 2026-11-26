@@ -19,7 +19,6 @@ import {
   Clapperboard,
   Camera,
   Layers,
-  Smile,
   Type,
   Clock,
   Timer,
@@ -32,15 +31,6 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-
-const EXPRESSION_PRESETS = [
-  { label: '😊 Warm Smile', text: 'warm gentle smile, friendly eye contact' },
-  { label: '✨ Confident', text: 'confident and professional expression' },
-  { label: '🤔 Curious', text: 'curious and intrigued expression, wide engaged eyes' },
-  { label: '😄 Cheerful', text: 'cheerful joyful expression, bright energetic mood' },
-  { label: '🧐 Thoughtful', text: 'thoughtful, focused and attentive expression' },
-  { label: '😮 Amazed', text: 'amazed expression with wonder and excitement' }
-];
 
 export default function ApprovalBoard({
   config,
@@ -87,36 +77,6 @@ export default function ApprovalBoard({
   const handleOpenPromptEditor = (index) => {
     setEditingPromptIdx(index);
     setCustomPromptText(scenes[index]?.image_prompt || '');
-  };
-
-  const handleAddExpressionToPrompt = (index, expressionText) => {
-    const scene = scenes[index];
-    if (!scene) return;
-
-    if (editingPromptIdx === index) {
-      let current = (customPromptText || '').trim();
-      if (!current.toLowerCase().includes(expressionText.toLowerCase())) {
-        current = current ? `${current}, ${expressionText}` : expressionText;
-      }
-      setCustomPromptText(current);
-    } else {
-      let current = (scene.image_prompt || '').trim();
-      if (!current.toLowerCase().includes(expressionText.toLowerCase())) {
-        current = current ? `${current}, ${expressionText}` : expressionText;
-      }
-      setEditingPromptIdx(index);
-      setCustomPromptText(current);
-
-      const updated = [...scenes];
-      updated[index] = {
-        ...updated[index],
-        image_prompt: current
-      };
-      onChangeConfig({
-        ...config,
-        scenes: updated
-      });
-    }
   };
 
   const handleRegenerateImage = async (index) => {
@@ -767,25 +727,6 @@ export default function ApprovalBoard({
                         onChange={(e) => handleCustomImageUpload(index, e.target.files[0])}
                       />
                     </label>
-                  </div>
-
-                  {/* Quick Character Expression Chips */}
-                  <div className="flex items-center gap-1 flex-wrap pt-0.5">
-                    <span className="text-[10px] font-bold text-slate-600 flex items-center gap-1 mr-0.5">
-                      <Smile className="w-3 h-3 text-blue-600 shrink-0" />
-                      <span>Expression:</span>
-                    </span>
-                    {EXPRESSION_PRESETS.map((p, pIdx) => (
-                      <button
-                        key={pIdx}
-                        type="button"
-                        onClick={() => handleAddExpressionToPrompt(index, p.text)}
-                        className="text-[10px] bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded transition font-medium active:scale-95 shadow-2xs"
-                        title={`Apply "${p.text}" to image`}
-                      >
-                        {p.label}
-                      </button>
-                    ))}
                   </div>
 
                   {/* Inline Prompt Editor */}
