@@ -33,6 +33,15 @@ import {
   ChevronRight
 } from 'lucide-react';
 
+const EXPRESSION_PRESETS = [
+  { label: '😊 Warm Smile', text: 'warm gentle smile, friendly eye contact' },
+  { label: '✨ Confident', text: 'confident and professional expression' },
+  { label: '🤔 Curious', text: 'curious and intrigued expression, wide engaged eyes' },
+  { label: '😄 Cheerful', text: 'cheerful joyful expression, bright energetic mood' },
+  { label: '🧐 Thoughtful', text: 'thoughtful, focused and attentive expression' },
+  { label: '😮 Amazed', text: 'amazed expression with wonder and excitement' }
+];
+
 export default function ApprovalBoard({
   config,
   onChangeConfig,
@@ -78,6 +87,36 @@ export default function ApprovalBoard({
   const handleOpenPromptEditor = (index) => {
     setEditingPromptIdx(index);
     setCustomPromptText(scenes[index]?.image_prompt || '');
+  };
+
+  const handleAddExpressionToPrompt = (index, expressionText) => {
+    const scene = scenes[index];
+    if (!scene) return;
+
+    if (editingPromptIdx === index) {
+      let current = (customPromptText || '').trim();
+      if (!current.toLowerCase().includes(expressionText.toLowerCase())) {
+        current = current ? `${current}, ${expressionText}` : expressionText;
+      }
+      setCustomPromptText(current);
+    } else {
+      let current = (scene.image_prompt || '').trim();
+      if (!current.toLowerCase().includes(expressionText.toLowerCase())) {
+        current = current ? `${current}, ${expressionText}` : expressionText;
+      }
+      setEditingPromptIdx(index);
+      setCustomPromptText(current);
+
+      const updated = [...scenes];
+      updated[index] = {
+        ...updated[index],
+        image_prompt: current
+      };
+      onChangeConfig({
+        ...config,
+        scenes: updated
+      });
+    }
   };
 
   const handleRegenerateImage = async (index) => {
@@ -730,15 +769,37 @@ export default function ApprovalBoard({
                     </label>
                   </div>
 
+                  {/* Quick Character Expression Chips */}
+                  <div className="flex items-center gap-1 flex-wrap pt-0.5">
+                    <span className="text-[10px] font-bold text-slate-600 flex items-center gap-1 mr-0.5">
+                      <Smile className="w-3 h-3 text-blue-600 shrink-0" />
+                      <span>Expression:</span>
+                    </span>
+                    {EXPRESSION_PRESETS.map((p, pIdx) => (
+                      <button
+                        key={pIdx}
+                        type="button"
+                        onClick={() => handleAddExpressionToPrompt(index, p.text)}
+                        className="text-[10px] bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded transition font-medium active:scale-95 shadow-2xs"
+                        title={`Apply "${p.text}" to image`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+
                   {/* Inline Prompt Editor */}
                   {isEditingPrompt && (
                     <div className="p-3 bg-slate-50 border border-slate-300 rounded-lg space-y-2 animate-in fade-in duration-100">
                       <div className="flex items-center justify-between text-[11px] font-bold text-slate-800">
-                        <span>Image Prompt</span>
+                        <span className="flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-blue-600" />
+                          <span>Image Generation Prompt</span>
+                        </span>
                         <button
                           type="button"
                           onClick={() => setEditingPromptIdx(null)}
-                          className="text-slate-500 hover:text-slate-800"
+                          className="text-slate-500 hover:text-slate-800 text-xs px-1"
                         >
                           ✕
                         </button>
@@ -747,16 +808,16 @@ export default function ApprovalBoard({
                         rows={3}
                         value={customPromptText}
                         onChange={(e) => setCustomPromptText(e.target.value)}
-                        className="w-full bg-white border border-slate-300 rounded p-2 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600"
-                        placeholder="Describe character visual action, environment, and lighting..."
+                        className="w-full bg-white border border-slate-300 rounded p-2 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 leading-relaxed"
+                        placeholder="Describe character visual action, expression, environment, and lighting..."
                       />
                       <button
                         type="button"
                         onClick={() => handleRegenerateImage(index)}
-                        className="w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 border border-blue-700"
+                        className="w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 border border-blue-700 active:scale-95 shadow-xs"
                       >
                         <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                        <span>Render New Keyframe</span>
+                        <span>Render Keyframe with this Prompt</span>
                       </button>
                     </div>
                   )}
@@ -810,40 +871,6 @@ export default function ApprovalBoard({
                       placeholder="e.g. Dr. Ananya Sharma • Lead Educator (or leave empty if no badge)"
                       className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition"
                     />
-                  </div>
-
-                  {/* Character Motion Prompt */}
-                  <div className="space-y-1">
-                    <label className="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                      <Smile className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                      <span>Character Motion & Facial Expression</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={scene.motion_prompt || ''}
-                      onChange={(e) => handleSceneChange(index, 'motion_prompt', e.target.value)}
-                      placeholder="e.g. Warm eye contact with camera, natural blinking, gentle smile..."
-                      className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition"
-                    />
-
-                    {/* Quick Motion Presets */}
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {[
-                        'Warm smile & eye contact',
-                        'Natural blinking & nodding',
-                        'Cheerful laugh & gestures',
-                        'Curious head tilt'
-                      ].map((preset, pIdx) => (
-                        <button
-                          key={pIdx}
-                          type="button"
-                          onClick={() => handleSceneChange(index, 'motion_prompt', preset)}
-                          className="text-[10px] bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 border border-slate-200 text-slate-600 px-2 py-0.5 rounded transition"
-                        >
-                          + {preset}
-                        </button>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </div>
