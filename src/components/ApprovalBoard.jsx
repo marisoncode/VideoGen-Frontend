@@ -792,21 +792,6 @@ export default function ApprovalBoard({
                     />
                   </div>
 
-                  {/* Subtitle */}
-                  <div className="space-y-1">
-                    <label className="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                      <Type className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                      <span>On-Screen Subtitle Caption</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={scene.subtitle || ''}
-                      onChange={(e) => handleSceneChange(index, 'subtitle', e.target.value)}
-                      placeholder="Subtitles burned into video..."
-                      className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition"
-                    />
-                  </div>
-
                   {/* Speaker / Name Card Badge (Optional) */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-xs sm:text-sm">
