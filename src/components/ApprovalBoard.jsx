@@ -84,7 +84,10 @@ export default function ApprovalBoard({
     if (!scene) return;
 
     const sNum = scene.scene_number || index + 1;
-    const promptToUse = customPromptText.trim() || scene.image_prompt || `Scene ${sNum} visual`;
+    const isCurrentEditor = editingPromptIdx === index;
+    const promptToUse = (isCurrentEditor && customPromptText.trim())
+      ? customPromptText.trim()
+      : (scene.image_prompt || `Scene ${sNum} visual`);
 
     setRegeneratingIdx(index);
 
@@ -123,6 +126,7 @@ export default function ApprovalBoard({
       });
 
       setEditingPromptIdx(null);
+      setCustomPromptText('');
     } catch (err) {
       console.error('Error regenerating image:', err);
       alert(`Could not regenerate image: ${err.message}`);
@@ -733,6 +737,7 @@ export default function ApprovalBoard({
                             onClick={() => {
                               handleSceneChange(index, 'image_prompt', customPromptText);
                               setEditingPromptIdx(null);
+                              setCustomPromptText('');
                             }}
                             className="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 bg-blue-50 hover:bg-blue-100 border border-blue-300 px-2.5 py-0.5 rounded transition shadow-2xs"
                           >
@@ -768,7 +773,10 @@ export default function ApprovalBoard({
                           <div className="flex items-center gap-2 self-end sm:self-auto">
                             <button
                               type="button"
-                              onClick={() => setEditingPromptIdx(null)}
+                              onClick={() => {
+                                setEditingPromptIdx(null);
+                                setCustomPromptText('');
+                              }}
                               className="px-2.5 py-1 text-xs text-slate-600 hover:text-slate-900 font-semibold"
                             >
                               Cancel
