@@ -12,7 +12,7 @@ export default function App() {
     title: '',
     voice: 'Reference Voice Clone (100% Match)',
     background_music: 'inspiring_educational',
-    design_style: 'cinematic_realistic',
+    design_style: (typeof window !== 'undefined' && localStorage.getItem('selected_design_style')) || 'pixar_3d',
     target_duration: 120,
     subtitle_font: 'Arial',
     subtitle_style: 'clean_white',
@@ -43,7 +43,7 @@ export default function App() {
     { id: 'claymation', name: 'Claymation Stop-Motion' },
     { id: 'cyberpunk_scifi', name: 'Futuristic Sci-Fi' }
   ]);
-  const [selectedDesignStyle, setSelectedDesignStyle] = useState('cinematic_realistic');
+  const [selectedDesignStyle, setSelectedDesignStyle] = useState(() => (typeof window !== 'undefined' && localStorage.getItem('selected_design_style')) || 'pixar_3d');
 
   const [replicateConfigured, setReplicateConfigured] = useState(false);
   const [cloudflareConfigured, setCloudflareConfigured] = useState(false);
@@ -67,7 +67,12 @@ export default function App() {
             setConfig({ ...data, scenes: validScenes });
             if (data.voice) setSelectedVoice(data.voice);
             if (data.background_music) setSelectedMusic(data.background_music);
-            if (data.design_style) setSelectedDesignStyle(data.design_style);
+            const savedStyle = typeof window !== 'undefined' ? localStorage.getItem('selected_design_style') : null;
+            if (savedStyle) {
+              setSelectedDesignStyle(savedStyle);
+            } else if (data.design_style) {
+              setSelectedDesignStyle(data.design_style);
+            }
           }
         }
       })
@@ -128,6 +133,11 @@ export default function App() {
 
   const handleDesignStyleSelect = (styleId) => {
     setSelectedDesignStyle(styleId);
+    try {
+      localStorage.setItem('selected_design_style', styleId);
+    } catch (e) {
+      console.warn('Could not save design style to localStorage', e);
+    }
     setConfig(prev => ({ ...prev, design_style: styleId }));
   };
 

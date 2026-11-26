@@ -129,7 +129,7 @@ export default function StudioInputSection({
 
     try {
       const formData = new FormData();
-      formData.append('design_style', selectedDesignStyle || 'cinematic_realistic');
+      formData.append('design_style', selectedDesignStyle || 'pixar_3d');
       formData.append('custom_character', customCharacter);
       formData.append('custom_environment', customEnvironment);
       formData.append('voice', selectedVoice || 'Reference Voice Clone (100% Match)');
