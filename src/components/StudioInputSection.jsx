@@ -220,13 +220,13 @@ export default function StudioInputSection({
           <button
             type="button"
             onClick={() => setActiveTab('google')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-md flex items-center justify-center gap-1.5 text-center transition ${
               activeTab === 'google'
-                ? 'bg-white text-indigo-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-blue-700 font-bold border border-slate-300 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
             }`}
           >
-            <Globe className="w-3.5 h-3.5 text-sky-600" />
+            <Globe className="w-3.5 h-3.5 text-sky-600 shrink-0" />
             <span>Google Docs / Sheets</span>
           </button>
 
@@ -252,17 +252,6 @@ export default function StudioInputSection({
             }`}
           >
             Upload File
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('google')}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-md text-center transition ${
-              activeTab === 'google'
-                ? 'bg-white text-blue-700 font-bold border border-slate-300 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
-            }`}
-          >
-            Google Cloud
           </button>
         </div>
       </div>
