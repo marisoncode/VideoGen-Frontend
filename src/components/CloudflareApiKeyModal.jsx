@@ -67,10 +67,10 @@ export default function CloudflareApiKeyModal({ isOpen, onClose, onConfigSaved }
         <button
           type="button"
           onClick={onClose}
-          className="group absolute top-4 right-4 text-slate-900 hover:text-black p-1.5 rounded-lg hover:bg-slate-100 transition"
+          className="group absolute top-4 right-4 text-black p-1.5 rounded-lg hover:bg-slate-200/80 transition"
           title="Close"
         >
-          <X className="w-4 h-4 transition-transform duration-200 group-hover:rotate-90" strokeWidth={2.5} />
+          <X className="w-4 h-4 transition-transform duration-75 ease-out group-hover:rotate-180" strokeWidth={3} />
         </button>
 
         <div className="flex items-center gap-2.5">
