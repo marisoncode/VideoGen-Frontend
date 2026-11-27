@@ -1027,7 +1027,7 @@ export default function ApprovalBoard({
                     className="group p-1.5 text-black bg-white/95 hover:bg-white rounded-lg transition shadow-xs"
                     title="Close (Esc)"
                   >
-                    <X className="w-5 h-5 transition-transform duration-75 ease-out group-hover:rotate-180" strokeWidth={3} />
+                    <X className="w-5 h-5 transition-transform duration-300 ease-in-out group-hover:rotate-180" strokeWidth={3} />
                   </button>
                 </div>
               </div>

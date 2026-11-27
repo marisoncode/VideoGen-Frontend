@@ -59,7 +59,7 @@ export default function ReplicateApiKeyModal({ isOpen, onClose, onConfigSaved })
           className="group absolute top-4 right-4 text-black p-1.5 rounded-lg hover:bg-slate-200/80 transition"
           title="Close"
         >
-          <X className="w-4 h-4 transition-transform duration-75 ease-out group-hover:rotate-180" strokeWidth={3} />
+          <X className="w-4 h-4 transition-transform duration-300 ease-in-out group-hover:rotate-180" strokeWidth={3} />
         </button>
 
         <div className="flex items-center gap-2.5">
