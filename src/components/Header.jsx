@@ -19,7 +19,7 @@ export default function Header({
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="text-xs sm:text-base font-bold tracking-tight text-slate-900 truncate">
-                VideoStudio <span className="text-blue-600 font-semibold hidden xs:inline">Production</span>
+                MIWAY <span className="text-blue-600 font-semibold hidden xs:inline">Video application</span>
               </span>
               <span className="text-[9px] sm:text-[11px] font-mono uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-300 font-semibold shrink-0">
                 1080p
