@@ -836,29 +836,47 @@ export default function ApprovalBoard({
                       rows={4}
                       value={scene.narration || ''}
                       onChange={(e) => handleSceneChange(index, 'narration', e.target.value)}
-                      placeholder="Voiceover script spoken by the neural voice..."
+                      placeholder="Voiceover script spoken by the neural voice... (Tip: Use 'Name: Line' on separate lines for multi-character voices)"
                       className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg p-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition leading-relaxed"
                     />
                   </div>
 
-                  {/* Speaker / Name Card Badge (Optional) */}
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between text-xs sm:text-sm">
-                      <label className="font-bold text-slate-800 flex items-center gap-1.5">
-                        <UserCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                        <span>Speaker / Name Card Badge <span className="font-normal text-slate-500 text-[11px]">(Optional)</span></span>
-                      </label>
-                      <span className="text-[10px] text-slate-500 font-medium hidden sm:inline">
-                        Overlays badge in video for this scene
-                      </span>
+                  {/* Speaker / Name Card Badge & Scene Voice Override (Optional) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
+                        <label className="font-bold text-slate-800 flex items-center gap-1.5">
+                          <UserCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                          <span>Speaker Badge <span className="font-normal text-slate-500 text-[11px]">(Optional)</span></span>
+                        </label>
+                      </div>
+                      <input
+                        type="text"
+                        value={scene.speaker_name || ''}
+                        onChange={(e) => handleSceneChange(index, 'speaker_name', e.target.value)}
+                        placeholder="e.g. Maya • Educator"
+                        className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition"
+                      />
                     </div>
-                    <input
-                      type="text"
-                      value={scene.speaker_name || ''}
-                      onChange={(e) => handleSceneChange(index, 'speaker_name', e.target.value)}
-                      placeholder="e.g. Dr. Ananya Sharma • Lead Educator (or leave empty if no badge)"
-                      className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition"
-                    />
+
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
+                        <label className="font-bold text-slate-800 flex items-center gap-1.5">
+                          <Volume2 className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                          <span>Scene Voice <span className="font-normal text-slate-500 text-[11px]">(Auto for Speaker: tags)</span></span>
+                        </label>
+                      </div>
+                      <select
+                        value={scene.voice || ''}
+                        onChange={(e) => handleSceneChange(index, 'voice', e.target.value)}
+                        className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-indigo-600 transition"
+                      >
+                        <option value="">Default (Project Voice)</option>
+                        {voices.map(v => (
+                          <option key={v.id} value={v.id}>{v.name}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
