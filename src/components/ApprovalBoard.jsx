@@ -1024,10 +1024,10 @@ export default function ApprovalBoard({
                   <button
                     type="button"
                     onClick={() => setFullscreenImage(null)}
-                    className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
+                    className="group p-1.5 text-slate-900 bg-white/90 hover:bg-white hover:text-black rounded-lg transition shadow-xs"
                     title="Close (Esc)"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5 transition-transform duration-200 group-hover:rotate-90" strokeWidth={2.5} />
                   </button>
                 </div>
               </div>
