@@ -186,15 +186,15 @@ export default function StudioInputSection({
   const estimatedScenesCount = targetDuration <= 35 ? '2' : targetDuration <= 75 ? '3-4' : targetDuration <= 110 ? '4-5' : targetDuration <= 160 ? '6-7' : `${Math.max(6, Math.round(targetDuration / 20))}-${Math.max(7, Math.round(targetDuration / 18))}`;
 
   return (
-    <div className="bg-white border border-slate-300 rounded-xl p-3.5 sm:p-5 md:p-6 space-y-4 sm:space-y-5 transition shadow-none">
+    <div className="bg-white border-2 border-blue-200/90 border-t-4 border-t-blue-600 rounded-2xl p-4 sm:p-5 md:p-6 space-y-4 sm:space-y-5 transition-all shadow-[0_6px_24px_-6px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/80">
       {/* Header with Step Indicator */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 -mx-4 sm:-mx-5 md:-mx-6 -mt-4 sm:-mt-5 md:-mt-6 px-4 sm:px-5 md:px-6 pt-4 sm:pt-5 pb-3.5 sm:pb-4 rounded-t-xl bg-gradient-to-r from-blue-50/95 via-indigo-50/50 to-transparent border-b border-blue-200/80">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-md bg-blue-600 text-white shadow-xs shrink-0">
               Step 01
             </span>
-            <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+            <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
               Production Setup & Scripting
             </h2>
           </div>

@@ -310,12 +310,17 @@ export default function ApprovalBoard({
   // If there are no scenes yet, show clean empty state
   if (scenes.length === 0) {
     return (
-      <div className="bg-white border border-dashed border-slate-300 rounded-xl p-6 sm:p-10 md:p-12 text-center space-y-3.5 sm:space-y-4 shadow-none">
-        <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center mx-auto text-blue-600">
+      <div className="bg-white border-2 border-indigo-200/90 border-t-4 border-t-indigo-600 rounded-2xl p-6 sm:p-10 md:p-12 text-center space-y-3.5 sm:space-y-4 shadow-[0_6px_24px_-6px_rgba(79,70,229,0.12)] ring-1 ring-indigo-100/80">
+        <div className="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center mx-auto shadow-xs">
           <Clapperboard className="w-6 h-6" />
         </div>
         <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Storyboard Awaiting Generation</h3>
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md bg-indigo-600 text-white">
+              Step 02
+            </span>
+            <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Storyboard Review</h3>
+          </div>
           <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
             Choose your target duration and style in <strong className="text-slate-800">Step 01</strong> above, then click <strong className="text-blue-700">Generate Autonomous Storyboard</strong> to draft scenes and keyframes.
           </p>
@@ -325,15 +330,15 @@ export default function ApprovalBoard({
   }
 
   return (
-    <div className="bg-white border border-slate-300 rounded-xl p-3.5 sm:p-5 md:p-6 space-y-4 sm:space-y-6 shadow-none">
+    <div className="bg-white border-2 border-indigo-200/90 border-t-4 border-t-indigo-600 rounded-2xl p-4 sm:p-5 md:p-6 space-y-4 sm:space-y-6 shadow-[0_6px_24px_-6px_rgba(79,70,229,0.14)] ring-1 ring-indigo-100/80 transition-all">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 pb-3 sm:pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 -mx-4 sm:-mx-5 md:-mx-6 -mt-4 sm:-mt-5 md:-mt-6 px-4 sm:px-5 md:px-6 pt-4 sm:pt-5 pb-3.5 sm:pb-4 rounded-t-xl bg-gradient-to-r from-indigo-50/95 via-purple-50/45 to-transparent border-b border-indigo-200/80">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
-              02
+          <div className="flex items-center gap-2.5">
+            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-md bg-indigo-600 text-white shadow-xs shrink-0">
+              Step 02
             </span>
-            <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+            <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
               Storyboard Review
             </h2>
           </div>
@@ -864,18 +869,20 @@ export default function ApprovalBoard({
       </div>
 
       {/* Subtitle Customization Panel */}
-      <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-4 space-y-3">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-200">
-          <div className="flex items-center gap-2">
-            <Type className="w-4 h-4 text-blue-600" />
-            <span className="text-xs sm:text-sm font-bold text-slate-800">
+      <div className="bg-gradient-to-br from-violet-50/75 via-white to-slate-50 border-2 border-violet-200/90 border-l-4 border-l-violet-600 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-[0_4px_18px_-4px_rgba(124,58,237,0.12)]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-violet-200/80">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className="w-6 h-6 rounded-md bg-violet-600 text-white flex items-center justify-center shadow-xs shrink-0">
+              <Type className="w-3.5 h-3.5" />
+            </span>
+            <span className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">
               Subtitle Styling & Font
             </span>
             <span className="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">
               Zero Shadow / Transparent Background
             </span>
           </div>
-          <span className="text-xs text-slate-500">
+          <span className="text-xs font-medium text-violet-700 bg-violet-100/70 px-2.5 py-0.5 rounded-md border border-violet-200">
             Burned dynamically into 1080p MP4
           </span>
         </div>

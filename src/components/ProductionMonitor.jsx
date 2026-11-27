@@ -55,15 +55,15 @@ export default function ProductionMonitor({ config, externalJobId, onRenderingFi
   const progressPct = jobStatus?.progress_pct || 0;
 
   return (
-    <div className="bg-white border border-slate-300 rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-5 shadow-none">
+    <div className="bg-white border-2 border-emerald-200/90 border-t-4 border-t-emerald-600 rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-5 shadow-[0_6px_24px_-6px_rgba(5,150,105,0.14)] ring-1 ring-emerald-100/80 transition-all">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 px-4 sm:px-6 pt-4 sm:pt-5 pb-3.5 sm:pb-4 rounded-t-xl bg-gradient-to-r from-emerald-50/95 via-teal-50/45 to-transparent border-b border-emerald-200/80">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
-              03
+          <div className="flex items-center gap-2.5">
+            <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-md bg-emerald-600 text-white shadow-xs shrink-0">
+              Step 03
             </span>
-            <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+            <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
               Final 1080p Video Player & Downloads
             </h2>
           </div>
@@ -72,7 +72,7 @@ export default function ProductionMonitor({ config, externalJobId, onRenderingFi
           </p>
         </div>
 
-        <span className="text-[11px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-1 rounded-md shrink-0">
+        <span className="text-[11px] font-mono font-bold bg-emerald-600 text-white px-3 py-1 rounded-md shrink-0 shadow-xs">
           1080p Full HD • 16:9 Cinema
         </span>
       </div>
