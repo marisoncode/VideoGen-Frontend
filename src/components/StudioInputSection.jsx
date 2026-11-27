@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { apiUrl } from '../api';
 import {
   FileText,
-  Sparkles,
+  Clapperboard,
   Upload,
   FileUp,
   Music,
@@ -669,7 +669,7 @@ export default function StudioInputSection({
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4 shrink-0" />
+              <Clapperboard className="w-4 h-4 shrink-0" />
               <span>Draft Storyboard & Prompts (Instant)</span>
             </>
           )}

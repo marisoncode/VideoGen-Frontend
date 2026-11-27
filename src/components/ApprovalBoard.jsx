@@ -4,7 +4,6 @@ import {
   Check,
   RefreshCw,
   Upload,
-  Sparkles,
   Trash2,
   Plus,
   Play,
@@ -379,8 +378,8 @@ export default function ApprovalBoard({
                 </>
               ) : scenes.filter(s => !(s.preview_url || s.image_path)).length > 0 ? (
                 <>
-                  <Sparkles className="w-3.5 h-3.5 text-blue-200" />
-                  <span>✨ Render All Keyframes ({scenes.filter(s => !(s.preview_url || s.image_path)).length} Pending)</span>
+                  <ImageIcon className="w-3.5 h-3.5 text-blue-200" />
+                  <span>Render All Keyframes ({scenes.filter(s => !(s.preview_url || s.image_path)).length} Pending)</span>
                 </>
               ) : (
                 <>
@@ -538,7 +537,7 @@ export default function ApprovalBoard({
                           className="mt-1 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xs font-bold transition flex items-center gap-1.5 shadow-sm active:scale-95"
                           title="Generate 16:9 keyframe via FLUX"
                         >
-                          <Sparkles className="w-3.5 h-3.5 text-blue-200" />
+                          <ImageIcon className="w-3.5 h-3.5 text-blue-200" />
                           <span>Render Keyframe</span>
                         </button>
                       </div>
@@ -692,8 +691,8 @@ export default function ApprovalBoard({
                         onClick={() => handleRegenerateImage(index)}
                         className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white border border-blue-700 transition active:scale-95 shadow-xs"
                       >
-                        <Sparkles className={`w-3.5 h-3.5 text-blue-200 shrink-0 ${isRegen ? 'animate-spin' : ''}`} />
-                        <span>{isRegen ? 'Rendering Keyframe...' : '✨ Render Keyframe'}</span>
+                        <ImageIcon className={`w-3.5 h-3.5 text-blue-200 shrink-0 ${isRegen ? 'animate-pulse' : ''}`} />
+                        <span>{isRegen ? 'Rendering Keyframe...' : 'Render Keyframe'}</span>
                       </button>
                     ) : (
                       <button
@@ -735,7 +734,7 @@ export default function ApprovalBoard({
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-xs sm:text-sm">
                       <label className="font-bold text-slate-800 flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        <ImageIcon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                         <span>Visual Scene Direction (Image Prompt)</span>
                       </label>
                       <div className="flex items-center gap-2">
@@ -805,7 +804,7 @@ export default function ApprovalBoard({
                               onClick={() => handleRegenerateImage(index)}
                               className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg flex items-center gap-1.5 shadow-xs transition"
                             >
-                              <Sparkles className="w-3.5 h-3.5" />
+                              <RefreshCw className="w-3.5 h-3.5" />
                               <span>{scene.preview_url ? 'Re-render' : 'Render'}</span>
                             </button>
                           </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clapperboard, FileText, Image as ImageIcon, Sparkles } from 'lucide-react';
+import { Clapperboard, Cpu, FileText, Image as ImageIcon } from 'lucide-react';
 
 export default function Header({
   groqConfigured,
@@ -25,7 +25,7 @@ export default function Header({
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 truncate">
-                MIWAY <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-bold hidden xs:inline">Video application</span>
+                MIWAY <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-bold hidden xs:inline">Video Application</span>
               </span>
               <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-900 text-white font-semibold shrink-0 shadow-xs">
                 1080p HD
@@ -43,7 +43,7 @@ export default function Header({
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          <Cpu className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
           <span className="text-[11px] font-semibold tracking-tight">Multi-Agent Engine Online</span>
         </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, ExternalLink, Cloud, Sparkles, ShieldCheck } from 'lucide-react';
+import { X, Check, ExternalLink, Cloud, ShieldCheck } from 'lucide-react';
 import { apiUrl } from '../api';
 
 export default function CloudflareApiKeyModal({ isOpen, onClose, onConfigSaved }) {
