@@ -5,6 +5,7 @@ import ApprovalBoard from './components/ApprovalBoard';
 import ProductionMonitor from './components/ProductionMonitor';
 import ReplicateApiKeyModal from './components/ReplicateApiKeyModal';
 import CloudflareApiKeyModal from './components/CloudflareApiKeyModal';
+import GroqApiKeyModal from './components/GroqApiKeyModal';
 import { apiUrl } from './api';
 
 export default function App() {
@@ -50,6 +51,7 @@ export default function App() {
   const [groqConfigured, setGroqConfigured] = useState(false);
   const [isReplicateModalOpen, setIsReplicateModalOpen] = useState(false);
   const [isCloudflareModalOpen, setIsCloudflareModalOpen] = useState(false);
+  const [isGroqModalOpen, setIsGroqModalOpen] = useState(false);
   const [isRendering, setIsRendering] = useState(false);
   const [jobId, setJobId] = useState(null);
 
@@ -212,6 +214,7 @@ export default function App() {
         replicateConfigured={replicateConfigured}
         cloudflareConfigured={cloudflareConfigured}
         groqConfigured={groqConfigured}
+        onOpenGroqModal={() => setIsGroqModalOpen(true)}
         onOpenReplicateModal={() => setIsReplicateModalOpen(true)}
         onOpenCloudflareModal={() => setIsCloudflareModalOpen(true)}
       />
@@ -252,6 +255,12 @@ export default function App() {
           />
         </section>
       </main>
+
+      <GroqApiKeyModal
+        isOpen={isGroqModalOpen}
+        onClose={() => setIsGroqModalOpen(false)}
+        onConfigSaved={() => setGroqConfigured(true)}
+      />
 
       <CloudflareApiKeyModal
         isOpen={isCloudflareModalOpen}

@@ -5,6 +5,7 @@ export default function Header({
   groqConfigured,
   replicateConfigured = false,
   cloudflareConfigured = false,
+  onOpenGroqModal,
   onOpenReplicateModal,
   onOpenCloudflareModal
 }) {
@@ -49,18 +50,20 @@ export default function Header({
         {/* Right Actions: Agent Status Pills */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 bg-slate-100/80 p-1 rounded-xl border border-slate-200/80">
           {/* Script Agent (Groq) */}
-          <div
-            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold transition-all ${
+          <button
+            type="button"
+            onClick={onOpenGroqModal}
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold transition-all cursor-pointer ${
               groqConfigured
-                ? 'bg-white text-slate-800 shadow-xs border border-slate-200/80'
-                : 'bg-transparent text-slate-500'
+                ? 'bg-white text-slate-800 shadow-xs border border-slate-200/80 hover:border-amber-300 hover:text-amber-700'
+                : 'bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100'
             }`}
-            title={groqConfigured ? 'Script Agent (Groq): Active' : 'Script Agent (Groq): Standby'}
+            title="Configure Script Agent (Groq LLM)"
           >
-            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${groqConfigured ? 'bg-emerald-500' : 'bg-slate-400'}`} />
-            <FileText className={`w-3.5 h-3.5 shrink-0 ${groqConfigured ? 'text-amber-500' : 'text-slate-400'}`} />
+            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${groqConfigured ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
+            <FileText className={`w-3.5 h-3.5 shrink-0 ${groqConfigured ? 'text-amber-500' : 'text-amber-600'}`} />
             <span className="tracking-tight">Script Agent</span>
-          </div>
+          </button>
 
           {/* Image Agent (Cloudflare FLUX) */}
           <button
