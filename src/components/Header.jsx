@@ -13,9 +13,11 @@ export default function Header({
       <div className="max-w-[1600px] w-full mx-auto flex items-center justify-between gap-2">
         {/* Brand & Studio Identity */}
         <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-blue-600 border border-blue-700 flex items-center justify-center text-white shrink-0 shadow-none">
-            <Film className="w-4 h-4 text-white" />
-          </div>
+          <img
+            src="/miway-logo.png"
+            alt="MIWAY Logo"
+            className="h-8 sm:h-10 w-auto object-contain shrink-0"
+          />
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="text-xs sm:text-base font-bold tracking-tight text-slate-900 truncate">
